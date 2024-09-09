@@ -8,22 +8,9 @@ import 'package:todo_app/feautres/home/presentation/views/widgets/done_tasks_vie
 import 'package:todo_app/feautres/home/presentation/views/widgets/new_tasks_view_body.dart';
 
 
-class HomeView extends StatefulWidget {
-  const HomeView({super.key});
-
-  @override
-  State<HomeView> createState() => _HomeViewState();
-}
-
-// 1- create database
-// 2- create tables
-// 3-open database
-// 4- insert to database
-// 5- get from database
-// 6-  update in database
-// 7- delete from database
-
-class _HomeViewState extends State<HomeView> {
+class HomeView extends StatelessWidget
+{
+ 
   int currentIndex = 0;
   late Database database;
   var titleControllr= TextEditingController();
@@ -91,7 +78,7 @@ return await database.rawQuery('SELECT * FROM Tasks');
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
+    //super.initState();
     createDatabase();
   }
 
@@ -117,13 +104,13 @@ return await database.rawQuery('SELECT * FROM Tasks');
             getDatafromDatabase(database).then((value) {
                               Navigator.pop(context);
 
-              setState(() {
-            isbottomSheetshown=false;
-                fbIcon=Icons.edit;
-                tasks=value;
-              print(tasks);
+            //   setState(() {
+            // isbottomSheetshown=false;
+            //     fbIcon=Icons.edit;
+            //     tasks=value;
+            //   print(tasks);
 
-              });
+            //   });
         
       });
            
@@ -212,18 +199,18 @@ return await database.rawQuery('SELECT * FROM Tasks');
               ),
             ),elevation: 15).closed.then((value) {
             isbottomSheetshown=false;
-            setState(() {
-              fbIcon=Icons.edit;
-            });
+            // setState(() {
+            //   fbIcon=Icons.edit;
+            // });
             })
           
            
             ;
           
           isbottomSheetshown=true;
-            setState(() {
-              fbIcon=Icons.add;
-            });
+            // setState(() {
+            //   fbIcon=Icons.add;
+            // });
 
           }
 
@@ -251,7 +238,7 @@ return await database.rawQuery('SELECT * FROM Tasks');
           currentIndex: currentIndex,
           onTap: (index) {
             currentIndex = index;
-            setState(() {});
+            // setState(() {});
           },
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'tasks'),
@@ -262,4 +249,15 @@ return await database.rawQuery('SELECT * FROM Tasks');
           ]),
     );
   }
+  
 }
+
+
+// 1- create database
+// 2- create tables
+// 3-open database
+// 4- insert to database
+// 5- get from database
+// 6-  update in database
+// 7- delete from database
+
