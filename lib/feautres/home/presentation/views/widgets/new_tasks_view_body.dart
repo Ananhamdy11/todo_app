@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/core/helpers/constants.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/feautres/home/presentation/managers/app_cubit/app_cubit.dart';
 import 'package:todo_app/feautres/home/presentation/views/widgets/task_item_widget.dart';
-
+import 'package:bloc/bloc.dart';
 class NewTasksViewBody extends StatelessWidget {
   const NewTasksViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemBuilder: (context,index){
-        return BuildTaskItem(model: tasks[index],);
+    return BlocConsumer<AppCubit,AppStates>(
+      listener: (context,satate){
+
       },
-     separatorBuilder:(context,index)=> Container(
-      width: double.infinity,
-      height: 1,
-      color: Colors.grey,
-         
-     ) ,
-      itemCount: tasks.length,
-      );
+      builder: (context,state){
+        var tasks=AppCubit.get(context).tasks;
+       return ListView.separated(
+        itemBuilder: (context,index){
+          return BuildTaskItem(model: tasks[index],);
+        },
+       separatorBuilder:(context,index)=> Container(
+        width: double.infinity,
+        height: 1,
+        color: Colors.grey,
+           
+       ) ,
+        itemCount: tasks.length,
+    );},
+    );
  
   }
 }
