@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/feautres/home/presentation/managers/app_cubit/app_cubit.dart';
 import 'package:todo_app/feautres/home/presentation/views/widgets/task_item_widget.dart';
-import 'package:bloc/bloc.dart';
 class NewTasksViewBody extends StatelessWidget {
   const NewTasksViewBody({super.key});
 

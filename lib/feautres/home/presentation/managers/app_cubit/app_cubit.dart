@@ -1,8 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:todo_app/feautres/home/presentation/views/widgets/archieved_tasks_view_body.dart';
 import 'package:todo_app/feautres/home/presentation/views/widgets/done_tasks_view_body.dart';
