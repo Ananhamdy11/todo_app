@@ -12,7 +12,7 @@ class NewTasksViewBody extends StatelessWidget {
 
       },
       builder: (context,state){
-        var tasks=AppCubit.get(context).tasks;
+        var tasks=AppCubit.get(context).newTasks;
        return ListView.separated(
         itemBuilder: (context,index){
           return BuildTaskItem(model: tasks[index],);

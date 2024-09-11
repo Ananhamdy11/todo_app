@@ -20,7 +20,9 @@ class AppCubit extends Cubit<AppStates> {
 
   List<String> title = ['New Tasks', 'Done Tasks', 'Archieved Tasks'];
 
-  List<Map> tasks=[];
+  List<Map> newTasks=[];
+  List<Map> doneTasks=[];
+  List<Map> archivedTasks=[];
 
 
   bool isbottomSheetshown=false;
@@ -40,12 +42,7 @@ class AppCubit extends Cubit<AppStates> {
       await database.execute(
           'CREATE TABLE Tasks (id INTEGER PRIMARY KEY, title TEXT ,date TEXT, time TEXT, status TEXT )');
     }, onOpen: (database) {
-       getDatafromDatabase(database).then((value) {
-        
-          tasks= value;
-          print(tasks);
-        emit(AppGetDataFromDatabaseState());
-      });
+       getDatafromDatabase(database);
       print('Database opened');
       
     }).then((value) {
@@ -54,7 +51,7 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-   insertToDatabase({
+ insertToDatabase({
   required String title,
   required String time,
   required String date,
@@ -66,12 +63,7 @@ class AppCubit extends Cubit<AppStates> {
       (value) {
       print('$value inserted success !');
       emit(AppInsertDatabaseState());
-getDatafromDatabase(database).then((value) {
-        
-          tasks= value;
-          print(tasks);
-        emit(AppGetDataFromDatabaseState());
-      });
+ getDatafromDatabase(database);
 
      }).catchError((error){ 
       print(error.toString());
@@ -80,17 +72,41 @@ getDatafromDatabase(database).then((value) {
     });
   }
 
-
-Future<List<Map>> getDatafromDatabase(database)async{
-  emit(AppGetDataFromDatabaseLoadingState());
-return await database.rawQuery('SELECT * FROM Tasks');
+void updateData({required String status, required int id}) async{
+   database.rawUpdate(
+    'UPDATE taska SET status = ?, WHERE id = ?',
+    ['$status', id ]).then((value)
+     {
+      emit(AppUpdateDatabaseState());
+    }
+    ) ;
 
 }
+
+void getDatafromDatabase(database){
+  emit(AppGetDataFromDatabaseLoadingState());
+ database.rawQuery('SELECT * FROM Tasks').then((value) {
+        
+
+          value.forEach((element) {
+            if(element['status']=='new' ){
+              newTasks.add(element);
+            }else if(element['status']=='done'){
+              doneTasks.add(element);
+            }else{
+              archivedTasks.add(element);
+            }
+          });
+
+        emit(AppGetDataFromDatabaseState());
+      });
+
+}
+
 void changeBottomSheetState({required bool isShow, required IconData icon}){
 isbottomSheetshown=isShow;
 fbIcon=icon;
 emit(AppChangeBottomSheetState());
 
+ }
 }
-
-  }
