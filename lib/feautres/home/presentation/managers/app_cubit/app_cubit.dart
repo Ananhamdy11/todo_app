@@ -77,6 +77,7 @@ void updateData({required String status, required int id}) async{
     'UPDATE taska SET status = ?, WHERE id = ?',
     ['$status', id ]).then((value)
      {
+   getDatafromDatabase(database);
       emit(AppUpdateDatabaseState());
     }
     ) ;
@@ -84,6 +85,10 @@ void updateData({required String status, required int id}) async{
 }
 
 void getDatafromDatabase(database){
+
+  newTasks=[];
+  doneTasks=[];
+  archivedTasks=[];
   emit(AppGetDataFromDatabaseLoadingState());
  database.rawQuery('SELECT * FROM Tasks').then((value) {
         
@@ -109,4 +114,6 @@ fbIcon=icon;
 emit(AppChangeBottomSheetState());
 
  }
+
+
 }
