@@ -74,11 +74,21 @@ class AppCubit extends Cubit<AppStates> {
 
 void updateData({required String status, required int id}) async{
    database.rawUpdate(
-    'UPDATE taska SET status = ?, WHERE id = ?',
+    'UPDATE tasks SET status = ? WHERE id = ?',
     ['$status', id ]).then((value)
      {
    getDatafromDatabase(database);
       emit(AppUpdateDatabaseState());
+    }
+    ) ;
+
+}
+
+void deleteData({required int id}) async{
+   database.rawDelete('DELETE FROM tasks WHERE id = ?', [id]).then((value)
+     {
+   getDatafromDatabase(database);
+      emit(AppDeleteDatabaseState());
     }
     ) ;
 

@@ -11,6 +11,7 @@ final class AppInsertDatabaseState extends AppStates{}
 final class AppGetDataFromDatabaseState extends AppStates{}
 final class AppGetDataFromDatabaseLoadingState extends AppStates{}
 final class AppUpdateDatabaseState extends AppStates{}
+final class AppDeleteDatabaseState extends AppStates{}
 final class AppChangeBottomSheetState extends AppStates{}
 
 
